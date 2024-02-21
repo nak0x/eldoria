@@ -4,8 +4,8 @@
 
 <form method="POST">
     <div class="mb-3">
-        <label class="form-label">Nom du personnage</label>
-        <input type="text" name="player-name" class="form-control" />
+        <label class="form-label" for="name">Nom du personnage</label>
+        <input type="text" name="name" id="name" class="form-control" />
     </div>
     
     <div class="form-check">

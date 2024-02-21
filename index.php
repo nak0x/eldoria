@@ -1,6 +1,6 @@
 <?php
 
-function psr4_autoloader($class){
+function psr4_autoloader($class): void{
     // On retire le Rpg\ par défaut
     $prefix = 'Rpg\\';
 
