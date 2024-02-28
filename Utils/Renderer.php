@@ -3,7 +3,7 @@
 namespace Rpg\Utils;
 
 use Rpg\Utils\View;
-use Rpg\Enums\GAME_STATE;
+use Rpg\Enums\GameState;
 
 class Renderer{
     public ?array $views;
@@ -17,13 +17,13 @@ class Renderer{
             if(View::isValidViewName($fp)){
                 $exploded_fn = explode(".", $fp);
                 // Naming convention : viewname.gamestep.view.php => [name, step, view, php]
-                $this->views[] = new View($exploded_fn[0], GAME_STATE::getStateFromInt(intval($exploded_fn[1])), "views/$fp");
+                $this->views[] = new View($exploded_fn[0], GameState::getStateFromInt(intval($exploded_fn[1])), "views/$fp");
             }
         }
     }
     
     // Loop throw all View in $views and return it path if the gameState match 
-    public function render(GAME_STATE $gameState): string{
+    public function render(GameState $gameState): string{
         foreach($this->views as $view){
             if($view->game_state === $gameState){
                 return $view->path;

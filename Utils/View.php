@@ -2,15 +2,15 @@
 
 namespace Rpg\Utils;
 
-use Rpg\Enums\GAME_STATE;
+use Rpg\Enums\GameState;
 
 class View{
 
     public string $name;
-    public GAME_STATE $game_state;
+    public GameState $game_state;
     public string $path;
 
-    public function __construct(string $name,GAME_STATE $game_state,string $path){
+    public function __construct(string $name, GameState $game_state, string $path){
         $this->name = $name;
         $this->game_state = $game_state;
         $this->path = $path;

@@ -3,7 +3,7 @@
 namespace Rpg;
 
 use JetBrains\PhpStorm\NoReturn;
-use Rpg\Models\Player;
+use Rpg\Models\Uuid;
 use Rpg\Utils\Action;
 use Rpg\Utils\Renderer;
 use Rpg\Utils\GameContext;
@@ -12,19 +12,19 @@ class GameEngine {
     private SessionStorage $storage;
     private Renderer $render;
     private GameContext $gameContext;
-    public ?Player $player;
     public array $logs;
 
     public function __construct(){
         // Initialisation des composant de base
         $this->storage = new SessionStorage();
         $this->render = new Renderer();
-        $this->gameContext = new GameContext();;
+        $this->gameContext = new GameContext();
     }
 
     // Accède à l'objet storage afin d'alimenter les attributs dans notre moteur
     private function retrieveDataFromSession() : void {
         $this->logs = $this->storage->get('logs') ?: [];
+        Uuid::$UUIDS = $this->storage->get('uuids') ?: Uuid::$UUIDS;
         $this->gameContext = $this->storage->get('GameContext') ?: new GameContext();
     }
 
@@ -55,8 +55,13 @@ class GameEngine {
             $this->resetStorage();
         }else{
             // Utilisation du gestionnaire d'actions pour call une action type
-            Action::handleAction($formData['form'],$formData, $this->gameContext);
+            try{
+                Action::handleAction($formData['form'],$formData, $this->gameContext);
+            }catch(\Exception $erreur){
+                $this->logAction($erreur);
+            }
             // GameContext save
+            $this->storage->save("uuid", Uuid::$UUIDS);
             $this->storage->save("GameContext", $this->gameContext);
         }
         // Redirection sur la page par défaut
