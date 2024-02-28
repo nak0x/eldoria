@@ -1,3 +1,0 @@
-<p class="lead">
-    <?= $this->player->name ?>, c'est ici que tout commence <?= $this->player->class ?> ...
-</p>

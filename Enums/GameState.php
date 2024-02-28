@@ -1,7 +1,7 @@
 <?php
 
 namespace Rpg\Enums;
-enum GAME_STATE: int
+enum GameState: int
 {
     case NOT_STARTED = 0;
     case IDLE = 1;
@@ -11,7 +11,7 @@ enum GAME_STATE: int
     case OVER = 5;
     case WIN = 6;
 
-    public static function getStateFromInt(int $query): GAME_STATE
+    public static function getStateFromInt(int $query): GameState
     {
         return match($query){
             self::NOT_STARTED->value => self::NOT_STARTED,

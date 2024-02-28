@@ -2,8 +2,7 @@
 
 namespace Rpg\Utils;
 
-use Rpg\Enums\GAME_STATE;
-use Rpg\Utils\GameContext;
+use Rpg\Enums\GameState;
 
 abstract class Action {
     static function handleAction(string $actionName,array &$formData, GameContext &$gameContext): void
@@ -22,7 +21,14 @@ abstract class Action {
         return [
             "player-creation" => function(array &$formData, GameContext &$gameContext): void{
                 $gameContext->definePlayer($formData["name"], $formData["class"]);
-                $gameContext->changeState(GAME_STATE::IDLE);
+            },
+            "goto-combat" => function(array &$formData, GameContext &$gameContext): void{
+                $gameContext->newCombat();
+            },
+            "combat-action" => function(array &$formData, GameContext &$gameContext): void{
+                if($gameContext->getState() == GameState::COMBAT){
+                    $gameContext->combatTurn($formData["action"], $formData["enemy"]);
+                }
             }
         ];
     }
