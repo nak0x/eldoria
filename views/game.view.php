@@ -49,6 +49,23 @@ use Rpg\Enums\Levels;
                     <?php endforeach ?>
                 </ul>
             </div>
+            <div class="set-var-container">
+                <form method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir définire cette variable')">
+                    <div class="m-3">
+                        <input type="hidden" name="form" value="set-var"/>
+                        <div class="d-flex gap-3">
+                            <select name="var" class="form-select" style="max-width: 320px">
+                                <?php foreach($game->gameContext->getFullData() as $key => $val): ?>
+                                <option value="<?= $key ?>"><?= $key ?></option>
+                                <?php endforeach; ?>
+                                <option value="player-level">Player level</option>
+                            </select>
+                            <input type="text" name="value" class="form-control">
+                            <button type="submit" class="btn btn-danger" style="min-width: 150px">Set var</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         <pre class="code-block"><code class="language-javascript"><?= var_export($game)?></code></pre>
     </div>

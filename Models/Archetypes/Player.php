@@ -66,6 +66,10 @@ abstract class Player extends Entity{
         $this->life = $this->max_life;
     }
 
+    public function setLevel(float $level):void{
+      $this->level = $level;
+    }
+
     public abstract function getClassName(): string;
 
     public abstract function buff(): void;

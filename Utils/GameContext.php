@@ -102,6 +102,7 @@ class GameContext{
             // Change le leveling en fonction du win
             if($this->data["combat"]->player->isAlive()){
                 $this->getPlayer()->levelUp(1);
+
             }else{
                 $this->getPlayer()->levelUp(0.5);
             }
@@ -123,6 +124,23 @@ class GameContext{
                 $this->setLevel(Levels::HELL);
             }
             $this->changeState(GameState::IDLE);
+          if($this->data["combat"]->player->isAlive() && $this->data['combat']->is_boss_fight){
+            $this->changeState(GameState::WIN);
+          }
         }
+    }
+
+    public function setVar(string $var, mixed $value): void{
+      switch($var){
+        case 'level':
+          $this->data['level'] = Levels::getLevelFromInt($value);
+          break;
+        case 'player-level':
+          $this->data['player']->setLevel($value);
+          break;
+        default:
+          $this->data[$var] = $value;
+          break;
+      }
     }
 }

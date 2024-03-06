@@ -36,6 +36,9 @@ abstract class Action {
                         $gameContext->combatTurn($formData["action"]);
                     }
                 }
+            },
+            "set-var" => function(array &$formData, GameContext &$gameContext): void{
+              $gameContext->setVar($formData["var"], $formData['value']);
             }
         ];
     }

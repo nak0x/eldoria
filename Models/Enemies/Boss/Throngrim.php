@@ -15,7 +15,7 @@ class Throngrim extends Enemy
     public function __construct(
         public float $level = 1){
         parent::__construct($level);
-        $this->max_life = 150000;
+        $this->max_life = 15000;
         $this->life = $this->max_life;
     }
 
