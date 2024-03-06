@@ -4,9 +4,13 @@ namespace Rpg\Models\Enemies\Low;
 
 use Rpg\Models\Archetypes\Player;
 use Rpg\Models\Enemies\Enemy;
+use Rpg\Enums\EnemyCode;
 
 class Goblin extends Enemy
 {
+
+    const string ENNEMY_CODE = "goblin";
+
     public int $ragePoints = 1;
 
     #[\Override] public function attack(Player $target): void
@@ -30,5 +34,14 @@ class Goblin extends Enemy
         if($this->ragePoints > 3){
             $this->ragePoints = 1;
         }
+    }
+
+    #[\Override] public function getName(): string
+    {
+        return "Goblin";
+    }
+
+    #[\Override] public function getEnemyCode(): EnemyCode{
+        return EnemyCode::Goblin;
     }
 }

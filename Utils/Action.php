@@ -20,14 +20,21 @@ abstract class Action {
     static function getActionList(): array{
         return [
             "player-creation" => function(array &$formData, GameContext &$gameContext): void{
-                $gameContext->definePlayer($formData["name"], $formData["class"]);
+                if(isset($formData["name"]) && isset($formData["class"]) && $formData["name"] != ""){
+                    $gameContext->definePlayer($formData["name"], $formData["class"]);
+                }
             },
             "goto-combat" => function(array &$formData, GameContext &$gameContext): void{
                 $gameContext->newCombat();
             },
             "combat-action" => function(array &$formData, GameContext &$gameContext): void{
                 if($gameContext->getState() == GameState::COMBAT){
-                    $gameContext->combatTurn($formData["action"], $formData["enemy"]);
+                    // string $action, int|string $enemyIndex |=> $action is an enum CombatAction and $enemyIndex the index of the enemy (and uuid)
+                    if(isset($formData["enemy"])){
+                        $gameContext->combatTurn($formData["action"], $formData["enemy"]);
+                    }else{
+                        $gameContext->combatTurn($formData["action"]);
+                    }
                 }
             }
         ];

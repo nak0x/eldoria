@@ -1,14 +1,271 @@
 .game-logs-container {
-    left: auto;
-    max-height: 25vh;
-    min-height: 200px;
-    width: 30vw;
-    min-width: 300px;
-    overflow-y: scroll;
+  left: auto;
+  max-height: 90vh;
+  min-height: 200px;
+  width: 100%;
+  min-width: 300px;
+  overflow-y: scroll;
 }
 
 .game-logs-container .list-group {
-    flex-direction: column-reverse;
-    justify-content: end;
-    height: 100%;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+}
+
+.player-container {
+  max-width: 20rem;
+  border: 2px #eee solid;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.code-block {
+  height: 95vh;
+  width: 30vw;
+  overflow-y: scroll;
+}
+
+.code-block::-webkit-scrollbar {
+  background-color: #2d2d2d;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+  background-color: #555555;
+}
+
+.devmenu-container {
+  padding: 1rem;
+  position: fixed;
+  inset: 0;
+  background-color: #fff7;
+  backdrop-filter: blur(15px);
+  z-index: 5000;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  opacity: 0;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.devmenu-container.visible {
+  opacity: 1;
+  user-select: auto;
+  pointer-events: all;
+}
+
+.devmode-btn {
+  position: fixed;
+  top: 0;
+  right: 2rem;
+  padding: 0.5rem;
+  background-color: #564ce2;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  z-index: 5;
+}
+
+.devmode-btn .btn {
+  color: #fff;
+}
+
+.game-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: 50px;
+  background-color: #eee;
+  z-index: 2;
+}
+
+.datetime-container {
+  padding-inline: 2rem;
+  background-color: #564ce2;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+.datetime {
+  margin: 0;
+}
+
+.game-title {
+  font-size: 1.2em;
+  margin: 0;
+}
+
+.player-profile-container {
+  border: 2px #eee solid;
+  border-radius: 1rem;
+  gap: 1rem;
+  width: fit-content;
+  background-color: #fff;
+  box-shadow: 0 5px 10px #0b092222;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 450px;
+  height: 80vh;
+  position: sticky;
+  top: 1.5rem;
+}
+
+.player-profile-container img {
+  max-height: 80vh;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.player-infos-container {
+  position: absolute;
+  align-self: flex-end;
+  width: 100%;
+  padding: 1rem;
+  background-color: #fff5;
+  backdrop-filter: blur(15px);
+}
+
+.life-container .life{
+  margin: 0;
+}
+
+.spell-container{
+  display: flex;
+  gap: .5rem;
+  margin: .5rem;
+  justify-content: center;
+}
+
+.game-container {
+  height: 100%;
+}
+
+.player-name {
+  font-size: 2em;
+  font-weight: 900;
+  margin: 0;
+}
+.player-class {
+  font-size: 1.3em;
+  font-style: italic;
+}
+
+.class-selector {
+  gap: 1rem;
+}
+
+.form-check {
+  padding: 0.5rem;
+  padding-left: 2rem;
+  border: 2px solid #eee;
+  border-radius: 0.5rem;
+}
+
+.lead {
+  font-size: 1.7em;
+  font-weight: 900;
+  background-color: #fff7;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  backdrop-filter: blur(15px);
+}
+
+.player-creation-form {
+  gap: 0.75rem;
+  padding: 2rem;
+  border: 2px solid #eee;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 15px #0b092222;
+  background-color: #fff;
+}
+
+.main-frame {
+  background-color: #fff3;
+  height: 100%;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(25px);
+}
+
+.idle.main-frame {
+  gap: 2rem;
+}
+
+.progress {
+  box-shadow: 0 5px 15px #0b092255;
+  background-color: #eee5;
+  backdrop-filter: blur(5px);
+}
+
+.combat.main-frame {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+}
+
+.enemies-global-container {
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.enemy-container {
+  width: 400px;
+  height: 300px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 2px #eee solid;
+}
+
+.enemy-container:hover {
+  box-shadow: 0 5px 15px #0b092233;
+}
+
+.enemy-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.enemy-container .enemy-details-wraper {
+  position: absolute;
+  align-self: flex-end;
+  width: 100%;
+  background-color: #fff3;
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.enemy-container .enemy-action-container {
+  display: none;
+}
+
+.enemy-container:hover .enemy-action-container {
+  position: absolute;
+  align-self: flex-start;
+  padding: 0.5rem;
+  background-color: #fff7;
+  backdrop-filter: blur(15px);
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  display: flex;
+  gap: 0.25rem;
 }

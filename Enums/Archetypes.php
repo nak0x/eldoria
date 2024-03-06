@@ -15,4 +15,12 @@ enum Archetypes: string
             Archetypes::PRIEST->value => Archetypes::PRIEST
         };
     }
+
+    public static function getImagePath(Archetypes $query): string{
+        return match($query){
+            Archetypes::WARRIOR => 'warrior.jpg',
+            Archetypes::MAGE => 'mage.jpg',
+            Archetypes::PRIEST => 'priest.jpg'
+        };
+    }
 }

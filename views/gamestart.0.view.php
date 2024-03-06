@@ -1,54 +1,60 @@
-<p class="lead">
-    Bienvenu en Eldoria, veuillez choisir votre nom et votre classe.
-</p>
-
-<form method="POST">
-    <div class="mb-3">
-        <label class="form-label" for="name">Nom du personnage</label>
-        <input type="text" name="name" id="name" class="form-control" />
-    </div>
-    
-    <div class="form-check">
-        <input 
-          id="warrior"
-          type="radio"
-          name="class"
-          value="warrior"
-          class="form-check-input">
-        <label
-          class="form-check-label"
-          for="warrior">
-            Guerrier
-        </label>
+<div class="d-flex align-items-center flex-column p-3 m-3">
+  <p class="lead">
+      Bienvenu en Eldoria, veuillez choisir votre nom et votre classe.
+  </p>
+  <form method="POST" class="player-creation-form p-2 m-2 d-flex align-items-center flex-column">
+      <div class="mb-3 w-100">
+          <label class="form-label" for="name">Nom du personnage</label>
+          <input type="text" name="name" id="name" class="form-control w-100" require/>
       </div>
-      <div class="form-check">
-        <input 
-          id="mage"
-          type="radio"
-          name="class"
-          value="mage"
-          class="form-check-input">
-        <label
-          class="form-check-label"
-          for="mage">
-            Mage
-        </label>
+      
+      <div class="class-selector d-flex">
+        <div class="form-check">
+          <input
+            id="warrior"
+            type="radio"
+            name="class"
+            value="warrior"
+            class="form-check-input"
+            require>
+          <label
+            class="form-check-label"
+            for="warrior">
+              Guerrier
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            id="mage"
+            type="radio"
+            name="class"
+            value="mage"
+            class="form-check-input"
+            require>
+          <label
+            class="form-check-label"
+            for="mage">
+              Mage
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+            id="priest"
+            type="radio"
+            name="class"
+            value="priest"
+            class="form-check-input"
+            require>
+          <label
+            class="form-check-label"
+            for="priest">
+              Prêtre
+          </label>
+        </div>
       </div>
-      <div class="form-check">
-        <input 
-          id="priest"
-          type="radio"
-          name="class"
-          value="priest"
-          class="form-check-input">
-        <label
-          class="form-check-label"
-          for="priest">
-            Prêtre
-        </label>
-      </div>
-
-    <input type="hidden" name="form" value="player-creation"/>
-
-    <button type="submit" class="btn btn-primary">Créer</button>
-</form>
+  
+      <input type="hidden" name="form" value="player-creation"/>
+  
+      <button type="submit" class="btn btn-primary">Créer</button>
+  </form>
+</div>

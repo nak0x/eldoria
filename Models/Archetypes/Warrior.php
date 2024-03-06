@@ -2,6 +2,7 @@
 
 namespace Rpg\Models\Archetypes;
 
+use Rpg\Enums\Archetypes;
 use Rpg\Models\Entity;
 use Rpg\Models\Items\Weapons\Sword;
 use Rpg\Models\Items\Weapons\Weapon;
@@ -9,6 +10,8 @@ use Rpg\Models\Items\Weapons\Weapon;
 class Warrior extends Player
 {
     private Weapon $weapon;
+    public Archetypes $archetype = Archetypes::WARRIOR;
+
 
     public function __construct(string $name)
     {

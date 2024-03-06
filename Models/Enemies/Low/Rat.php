@@ -4,9 +4,12 @@ namespace Rpg\Models\Enemies\Low;
 
 use Rpg\Models\Archetypes\Player;
 use Rpg\Models\Enemies\Enemy;
+use Rpg\Enums\EnemyCode;
 
 class Rat extends Enemy
 {
+
+    const string ENNEMY_CODE = "rat";
 
     #[\Override] public function attack(Player $target): void
     {
@@ -20,5 +23,14 @@ class Rat extends Enemy
             $this->skipNextRound = true;
         }
         $this->defenceCount++;
+    }
+
+    #[\Override] public function getName(): string
+    {
+        return "Rat";
+    }
+
+    #[\Override] public function getEnemyCode(): EnemyCode{
+        return EnemyCode::Rat;
     }
 }

@@ -2,11 +2,14 @@
 
 namespace Rpg\Models\Archetypes;
 
+use Rpg\Enums\Archetypes;
 use Rpg\Models\Archetypes\Player;
 use Rpg\Models\Entity;
 
 class Mage extends Player
 {
+
+  public Archetypes $archetype = Archetypes::MAGE;
 
     #[\Override] public function buff(): void{
         $this->healFactor *= 2 * $this->level;

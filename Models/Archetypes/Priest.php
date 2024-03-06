@@ -2,11 +2,14 @@
 
 namespace Rpg\Models\Archetypes;
 
+use Rpg\Enums\Archetypes;
 use Rpg\Models\Archetypes\Player;
 use Rpg\Models\Entity;
 
 class Priest extends Player
 {
+  public Archetypes $archetype = Archetypes::PRIEST;
+
 
     #[\Override] public function buff(): void
     {
@@ -26,7 +29,7 @@ class Priest extends Player
 
     #[\Override] public function ulti(): void
     {
-        // TODO: Implement ulti() method.
+        $this->healFactor = 2 * max(($this->level / 2), 1);
     }
 
     #[\Override] public function getClassName(): string

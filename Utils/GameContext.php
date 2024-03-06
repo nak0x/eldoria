@@ -14,6 +14,7 @@ use Rpg\Models\Enemies\Enemy;
 use Rpg\Models\Market;
 use Rpg\Enums\GameState;
 use Rpg\Models\Uuid;
+use Rpg\Enums\LevelRange;
 
 class GameContext{
     private array $data = [
@@ -23,6 +24,7 @@ class GameContext{
         "state" => GameState::NOT_STARTED,
         "level" => Levels::OVERWORLD
     ];
+
     public function __construct()
     {
         $this->data["market"] = new Market();
@@ -67,6 +69,7 @@ class GameContext{
             default => $this->data["state"] = GameState::NOT_STARTED
         };
     }
+
     public function definePlayer(string $name, string $className): void{
         //$this->data["player"] = new Player($name, $className);
 
@@ -77,22 +80,47 @@ class GameContext{
         };;
         $this->changeState(GameState::IDLE);
     }
+
+    public function setLevel(Levels $level): void
+    {
+        $this->data["level"] = $level;
+    }
+
     public function newCombat(): void{
         $this->changeState(GameState::COMBAT);
         $this->data["combat"] = new Combat($this->getLevel(), $this->getPlayer());
     }
 
-    public function combatTurn(string $action, int|string $enemyIndex):void {
+    public function combatTurn(string $action, string|null $enemyIndex=null):void {
         $combat = $this->getCombat();
         // Run the turn
         $combat->turn(CombatActions::getCombatActionFromString($action), $enemyIndex);
 
         // Update depending on combat state
         if($combat->isOver){
+
+            // Change le leveling en fonction du win
             if($this->data["combat"]->player->isAlive()){
                 $this->getPlayer()->levelUp(1);
             }else{
-                $this->getPlayer()->levelUp(0.25);
+                $this->getPlayer()->levelUp(0.5);
+            }
+
+            // Set le niveau global du jeu en fonction du niveau du joueur
+            switch(LevelRange::getRangeFromLevel($this->data["combat"]->player->level)){
+                case LevelRange::Low:
+                    $this->setLevel(Levels::OVERWORLD);
+                    break;
+                case LevelRange::Med:
+                    $this->setLevel(Levels::MISTS);
+                    break;
+                case LevelRange::High:
+                    $this->setLevel(Levels::CAVE);
+                    break;
+            }
+            // Si le level du joueur est 100 passage dans les enferts
+            if($this->data["player"]->level == 100){
+                $this->setLevel(Levels::HELL);
             }
             $this->changeState(GameState::IDLE);
         }

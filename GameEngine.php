@@ -11,8 +11,9 @@ use Rpg\Utils\GameContext;
 class GameEngine {
     private SessionStorage $storage;
     private Renderer $render;
-    private GameContext $gameContext;
-    public array $logs;
+    public GameContext $gameContext;
+    public array $logs = [];
+    const MAX_LOG_ACTION = 20;
 
     public function __construct(){
         // Initialisation des composant de base
@@ -23,9 +24,15 @@ class GameEngine {
 
     // Accède à l'objet storage afin d'alimenter les attributs dans notre moteur
     private function retrieveDataFromSession() : void {
-        $this->logs = $this->storage->get('logs') ?: [];
+        $fetchedLogs = $this->storage->get('logs') ?: [];
         Uuid::$UUIDS = $this->storage->get('uuids') ?: Uuid::$UUIDS;
         $this->gameContext = $this->storage->get('GameContext') ?: new GameContext();
+
+        for($i = 0; $i < self::MAX_LOG_ACTION; $i++){
+            if(isset($fetchedLogs[$i])){
+                array_unshift($this->logs, $fetchedLogs[$i]);
+            }
+        }
     }
 
     // Ajoute un message à la boîte de log en bas à droite
@@ -34,9 +41,9 @@ class GameEngine {
         if(gettype($action) == "string"){
             $message = $message . " : " . $action;
         }else{
-            $message = $message . var_export($action, true);
+            $message = $message . " : " . var_export($action, true);
         }
-        $this->logs[] = $message;
+        array_unshift($this->logs, $message);
         $this->storage->save('logs', $this->logs);
     }
 
@@ -82,6 +89,7 @@ class GameEngine {
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $this->handlePost($_POST);
         } else {
+            //$this->logAction($this->gameContext->getFullData());
             $this->render();
         }
     }
